@@ -81,10 +81,6 @@ public class VisContainer
         DataAxis axis = new DataAxis(xyzOffset[(int)axisDirection]);
         Scale scale = CreateAxisScale(minMaxValues, xyzOffset[(int)axisDirection]);
 
-        xyzTicks[(int)axisDirection] = true 
-            ? (int)Math.Round(Math.Sqrt(minMaxValues.Length)) //Square-root choice
-            : (int)Math.Round(Math.Log(minMaxValues.Length, 2)) + 1; //Sturges' formula
-
         axis.CreateAxis(axisContainer.transform, axisLabel, scale, axisDirection, xyzTicks[(int)axisDirection]);
         dataAxisList.Add(axis);
     }
