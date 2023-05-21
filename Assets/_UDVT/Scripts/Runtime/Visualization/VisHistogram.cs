@@ -3,13 +3,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-
 public class VisHistogram : Vis
 {
+    private List<double> _xData = new List<double>();
+    private List<double> _frequency = new List<double>();
+
     public VisHistogram()
     {
         title = "Histogram";
@@ -24,7 +22,8 @@ public class VisHistogram : Vis
         base.CreateVis(container);
 
         UpdatexyzTicks(true);
-        changeData();
+
+        ChangeAxisAttribute(0,0, xyzTicks[0]);
 
         //## 01:  Create Axes and Grids
 
@@ -33,7 +32,7 @@ public class VisHistogram : Vis
         visContainer.CreateGrid(Direction.X, Direction.Y);
 
         // Y Axis
-        visContainer.CreateAxis(dataSets[0].ElementAt(1).Key, dataSets[0].ElementAt(1).Value, Direction.Y);
+        visContainer.CreateAxis("frequency", dataSets[0].ElementAt(1).Value, Direction.Y);
 
 
         //## 02: Set Remaining Vis Channels (Color,...)
@@ -53,45 +52,52 @@ public class VisHistogram : Vis
         return visContainerObject;
     }
 
+    /// <summary>
+    /// Each child class can define how the axis attribute in the visualization can be changed.
+    /// </summary>
+    /// <param name="axisId"></param>
+    /// <param name="selectedDimension"></param>
+    /// <param name="numberOfTicks"></param>
+    public override void ChangeAxisAttribute(int axisId, int selectedDimension, int numberOfTicks)
+    {
+        double[] minMaxValues = dataSets[0].ElementAt(selectedDimension).Value;
+
+        double _min = minMaxValues.Min();
+        double _max = minMaxValues.Max();
+        double _range = (_max - _min) / numberOfTicks;
+
+        for (var i = 0; i < numberOfTicks; i++)
+        {
+            int temp = minMaxValues.Where(q => (q >= _min) && (q < (_min + _range))).Count();
+            _frequency.Add(temp);
+
+            _min = _min + _range;
+            _xData.Add(_min);
+        }
+
+        ChangeDataMarks();
+    }
+
+    /// <summary>
+    /// Each child class can define how the Data Marks in the visualization can be changed.
+    /// </summary>
+    public override void ChangeDataMarks()
+    {
+        var xName = dataSets[0].ElementAt(0).Key;
+        var yName = dataSets[0].ElementAt(1).Key;
+        dataSets[0][xName] = _xData.ToArray();
+        dataSets[0][yName] = _frequency.ToArray();
+    }
+
     #region private
 
     private void UpdatexyzTicks(bool useSquareRoot)
     {
+        int len = dataSets[0].ElementAt(0).Value.Length;
+
         xyzTicks[0] = useSquareRoot
-                        ? (int)Math.Round(Math.Sqrt(dataSets[0].ElementAt(0).Value.Length)) + 1 //Square-root choice
-                        : (int)Math.Round(Math.Log(dataSets[0].ElementAt(0).Value.Length, 2)) + 1; //Sturges' formula
-    }
-
-    private void changeData()
-    {
-        double[] minMaxValues = dataSets[0].ElementAt(0).Value;
-
-        double[] _x = new double[xyzTicks[0]];
-        double _min = minMaxValues.Min();
-        double _max = minMaxValues.Max();
-        double _range = (_max - _min) / xyzTicks[0];
-        
-        int numberOfMaxRepeatedNumber = 0;
-        List<double> frequency = new List<double>();
-
-        for (var i = 0;i< xyzTicks[0]; i++)
-        {
-            int temp = minMaxValues.Where(q => (q >= _min) && (q < (_min + _range))).Count();
-            frequency.Add(temp);
-
-            _min = _min + _range;
-            _x[i] = _min;
-        }
-
-        updateDataset(_x, frequency.ToArray());
-    }
-
-    private void updateDataset(double[] xData, double[] yData)
-    {
-        var xName = dataSets[0].ElementAt(0).Key;
-        var yName = dataSets[0].ElementAt(1).Key;
-        dataSets[0][xName] = xData;
-        dataSets[0][yName] = yData;
+            ? (int)Math.Ceiling(Math.Sqrt(len)) //Square-root choice
+            : (int)Math.Ceiling(Math.Log(len, 2)) + 1; //Sturges' formula
     }
 
     #endregion private
