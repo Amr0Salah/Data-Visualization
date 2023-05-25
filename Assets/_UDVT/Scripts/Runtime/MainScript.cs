@@ -55,6 +55,8 @@ public class MainScript : MonoBehaviour
             ? VisType.Scatterplot
             : VisType.Histogram;
 
+        visType = VisType.Densityplot;
+
         vis = Vis.GetSpecificVisType(visType);
         vis.AppendData(dataSet);
         vis.CreateVis(this.gameObject);

@@ -14,7 +14,7 @@ public class KernelDensityEstimation
     /// <param name="sigma"></param>
     /// <param name="nsteps"></param>
     /// <returns></returns>
-    public static double[,] KDE(double[] data, double sigma, int nsteps)
+    public static double[,] KDE(double[] data, double sigma = 1, int nsteps = 100) // GROUP12: Added default sigma and nsteps values
     {
         //Taken from https://gist.github.com/ksandric/e91860143f1dd378645c01d518ddf013
 
