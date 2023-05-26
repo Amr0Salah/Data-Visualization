@@ -11,7 +11,10 @@ public enum VisType
 {
     Scatterplot,
     NumberOfVisTypes,
-    Histogram
+    Histogram,
+    Densityplot,
+    ViolinPlot,
+    HorizonGraph
 }
 
 /// <summary>
@@ -200,11 +203,18 @@ public class Vis
     {
         switch (vistype)
         {
-            default:
             case VisType.Scatterplot:
                 return new VisScatterplot();
             case VisType.Histogram:
                 return new VisHistogram();
+            case VisType.Densityplot:
+                return new VisDensityplot();
+            case VisType.ViolinPlot:
+                return new VisViolinplot();
+            case VisType.HorizonGraph:
+                return new VisHorizonGraph();
+            default:
+                return new VisScatterplot();
         }
     }
 
