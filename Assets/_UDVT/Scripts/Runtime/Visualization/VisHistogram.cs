@@ -22,11 +22,9 @@ public class VisHistogram : Vis
         base.CreateVis(container);
 
         UpdatexyzTicks(true);
-
         ChangeAxisAttribute(0,0, xyzTicks[0]);
 
         //## 01:  Create Axes and Grids
-
         // X Axis
         visContainer.CreateAxis(dataSets[0].ElementAt(0).Key, dataSets[0].ElementAt(0).Value, Direction.X);
         visContainer.CreateGrid(Direction.X, Direction.Y);
@@ -36,11 +34,8 @@ public class VisHistogram : Vis
 
 
         //## 02: Set Remaining Vis Channels (Color,...)
-
         visContainer.SetChannel(VisChannel.XPos, dataSets[0].ElementAt(0).Value);
         visContainer.SetChannel(VisChannel.YSize, dataSets[0].ElementAt(1).Value);
-
-        // visContainer.SetChannel(VisChannel.ZPos, dataSets[0].ElementAt(2).Value);
         visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(3).Value);
 
         //## 03: Draw all Data Points with the provided Channels 
