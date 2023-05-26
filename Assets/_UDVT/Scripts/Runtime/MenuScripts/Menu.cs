@@ -7,36 +7,36 @@ public class Menu : MonoBehaviour
 {
     public void StartWithScatterplot()
     {
-        CurrentVisType.currentVisType = VisType.Scatterplot;
-        CallMainScene();
+        CurrentParams.currentVisType = VisType.Scatterplot;
+        CallLoadData();
     }
 
     public void StartWithHistogram()
     {
-        CurrentVisType.currentVisType = VisType.Histogram;
-        CallMainScene();
+        CurrentParams.currentVisType = VisType.Histogram;
+        CallLoadData();
     }
 
     public void StartWithDensityplot()
     {
-        CurrentVisType.currentVisType = VisType.Densityplot;
-        CallMainScene();
+        CurrentParams.currentVisType = VisType.Densityplot;
+        CallLoadData();
     }
 
     public void StartWithViolinPlot()
     {
-        CurrentVisType.currentVisType = VisType.ViolinPlot;
-        CallMainScene();
+        CurrentParams.currentVisType = VisType.ViolinPlot;
+        CallLoadData();
     }
 
     public void StartWithHorizonGraph()
     {
-        CurrentVisType.currentVisType = VisType.HorizonGraph;
-        CallMainScene();
+        CurrentParams.currentVisType = VisType.HorizonGraph;
+        CallLoadData();
     }
 
-    private void CallMainScene()
+    private void CallLoadData()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("LoadData");
     }
 }

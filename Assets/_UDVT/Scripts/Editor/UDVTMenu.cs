@@ -15,6 +15,6 @@ public class UDVTMenu : MonoBehaviour
     static void LoadData()
     {
         MainScript main = FindFirstObjectByType<MainScript>();
-        main.LoadAndVisualize();
+        main.Visualize();
     }
 }

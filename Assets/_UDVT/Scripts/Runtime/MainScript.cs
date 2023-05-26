@@ -7,21 +7,12 @@ using UnityEngine;
 /// </summary>
 public class MainScript : MonoBehaviour
 {
-    private FileLoadingManager fileLoadingManager;
-    private Dictionary<string, double[]> dataSet;
-
     private Vis vis;
-
-    // Awake is called before Start
-    void Awake()
-    {
-        fileLoadingManager = new FileLoadingManager();
-    }
 
     // Start is called at the beginning of the application
     async void Start()
     {
-        LoadAndVisualize();
+        Visualize();
     }
 
     void Update()
@@ -34,24 +25,11 @@ public class MainScript : MonoBehaviour
         
     }
 
-    public async void LoadAndVisualize()
+    public async void Visualize()
     {
-        //## 01: Load Dataset
-
-        string filePath = fileLoadingManager.StartPicker();
-        // Application waits for the loading process to finish
-        FileType file = await fileLoadingManager.LoadDataset();
-
-        if (file == null) return; //Nothing loaded
-
-        //## 02: Process Dataset
-
-        CsvFileType csvFile = (CsvFileType)file;
-        dataSet = csvFile.GetDataSet();
-
         //## 03: Visualize Dataset
-        vis = Vis.GetSpecificVisType(CurrentVisType.currentVisType);
-        vis.AppendData(dataSet);
+        vis = Vis.GetSpecificVisType(CurrentParams.currentVisType);
+        vis.AppendData(CurrentParams.loadedData);
         vis.CreateVis(this.gameObject);
     }
 }
