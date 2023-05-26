@@ -210,9 +210,9 @@ public class Vis
             case VisType.Densityplot:
                 return new VisDensityplot();
             case VisType.ViolinPlot:
-                return new ViolinPlot();
+                return new VisViolinplot();
             case VisType.HorizonGraph:
-                return new HorizonGraph();
+                return new VisHorizonGraph();
             default:
                 return new VisScatterplot();
         }

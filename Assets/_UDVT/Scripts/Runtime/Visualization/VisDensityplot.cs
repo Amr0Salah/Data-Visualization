@@ -1,8 +1,5 @@
 ﻿using System.Linq;
 using UnityEngine;
-using System.Collections.Generic;
-using System;
-
 using static KernelDensityEstimation;
 
 public class VisDensityplot : Vis
@@ -26,7 +23,6 @@ public class VisDensityplot : Vis
         ChangeDataMarks();
 
         //## 01:  Create Axes and Grids
-
         // X Axis
         visContainer.CreateAxis(dataSets[0].ElementAt(0).Key, dataSets[0].ElementAt(0).Value, Direction.X);
         visContainer.CreateGrid(Direction.X, Direction.Y);
@@ -34,12 +30,9 @@ public class VisDensityplot : Vis
         // Y Axis
         visContainer.CreateAxis("density function", dataSets[0].ElementAt(1).Value, Direction.Y);
 
-
         //## 02: Set Remaining Vis Channels (Color,...)
-
         visContainer.SetChannel(VisChannel.XPos, dataSets[0].ElementAt(0).Value);
-        visContainer.SetChannel(VisChannel.YSize, dataSets[0].ElementAt(1).Value);
-        
+        visContainer.SetChannel(VisChannel.YPos, dataSets[0].ElementAt(1).Value);
         visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(3).Value);
 
         //## 03: Draw all Data Points with the provided Channels 
@@ -62,5 +55,4 @@ public class VisDensityplot : Vis
         dataSets[0][xName] = Enumerable.Range(0, KDEresult.GetLength(0)).Select(x => KDEresult[x, 0]).ToArray();
         dataSets[0][yName] = Enumerable.Range(0, KDEresult.GetLength(0)).Select(x => KDEresult[x, 1]).ToArray();
     }
-
 }

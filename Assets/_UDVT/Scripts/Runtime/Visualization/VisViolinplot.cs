@@ -3,13 +3,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class HorizonGraph : Vis
+public class VisViolinplot : Vis
 {
     public double[,] KDEresult = null;
 
-    public HorizonGraph()
+    public VisViolinplot()
     {
-        title = "HorizonGraph";
+        title = "ViolinPlot";
 
         //Define Data Mark and Tick Prefab
         dataMarkPrefab = (GameObject)Resources.Load("Prefabs/DataVisPrefabs/Marks/Sphere");
