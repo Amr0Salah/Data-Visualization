@@ -49,15 +49,8 @@ public class MainScript : MonoBehaviour
         CsvFileType csvFile = (CsvFileType)file;
         dataSet = csvFile.GetDataSet();
 
-
         //## 03: Visualize Dataset
-        var visType = false
-            ? VisType.Scatterplot
-            : VisType.Histogram;
-
-        visType = VisType.Densityplot;
-
-        vis = Vis.GetSpecificVisType(visType);
+        vis = Vis.GetSpecificVisType(CurrentVisType.currentVisType);
         vis.AppendData(dataSet);
         vis.CreateVis(this.gameObject);
     }
