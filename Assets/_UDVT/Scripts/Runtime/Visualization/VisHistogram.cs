@@ -3,6 +3,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
+public enum BinningType
+{
+    Squareroot,
+    Sturges
+}
+
 public class VisHistogram : Vis
 {
     private List<double> _xData = new List<double>();
@@ -21,7 +27,7 @@ public class VisHistogram : Vis
     {
         base.CreateVis(container);
 
-        UpdatexyzTicks(true);
+        UpdatexyzTicks();
         ChangeAxisAttribute(0,0, xyzTicks[0]);
 
         //## 01:  Create Axes and Grids
@@ -86,11 +92,11 @@ public class VisHistogram : Vis
 
     #region private
 
-    private void UpdatexyzTicks(bool useSquareRoot)
+    private void UpdatexyzTicks()
     {
         int len = dataSets[0].ElementAt(0).Value.Length;
 
-        xyzTicks[0] = useSquareRoot
+        xyzTicks[0] = (CurrentParams.currentBinningType == BinningType.Squareroot)
             ? (int)Math.Ceiling(Math.Sqrt(len)) //Square-root choice
             : (int)Math.Ceiling(Math.Log(len, 2)) + 1; //Sturges' formula
     }
