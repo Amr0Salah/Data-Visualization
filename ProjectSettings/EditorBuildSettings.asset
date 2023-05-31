@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_UDVT/Scenes/MainScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/_UDVT/Scenes/ChooseKdeParameters.unity
+    guid: 92ba5c33c38cd9b42a99f2ca41cb76c4
   m_configObjects: {}
