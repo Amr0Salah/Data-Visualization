@@ -35,7 +35,7 @@ public class VisDensityplot : Vis
         //## 02: Set Remaining Vis Channels (Color,...)
         visContainer.SetChannel(VisChannel.XPos, dataSets[0].ElementAt(0).Value);
         visContainer.SetChannel(VisChannel.YPos, dataSets[0].ElementAt(1).Value);
-        visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(3).Value);
+        visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(1).Value);
 
         //## 03: Draw all Data Points with the provided Channels 
         visContainer.CreateDataMarks(dataMarkPrefab);
