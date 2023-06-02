@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class LoadData : MonoBehaviour
 {
     private FileLoadingManager fileLoadingManager;
@@ -30,7 +29,13 @@ public class LoadData : MonoBehaviour
         //## 02: Process Dataset
         CsvFileType csvFile = (CsvFileType)file;
         CurrentParams.loadedData = csvFile.GetDataSet();
-        CallMainScene();
+
+        if (Helper.FileValidation())
+            CallMainScene();
+        else
+            Debug.LogError(CurrentParams.currentVisType + " cannot be plot with the csv file you uploaded.");
+
+
     }
 
     private void CallMainScene()
