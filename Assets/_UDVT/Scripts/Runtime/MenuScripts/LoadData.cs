@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
+/// <summary>
+/// LoadData, the field to load the data required for drawing the selected graph.
+/// </summary>
 public class LoadData : MonoBehaviour
 {
     private FileLoadingManager fileLoadingManager;
@@ -21,6 +26,7 @@ public class LoadData : MonoBehaviour
         //## 01: Load Dataset
 
         string filePath = fileLoadingManager.StartPicker();
+
         // Application waits for the loading process to finish
         FileType file = await fileLoadingManager.LoadDataset();
 
@@ -29,7 +35,8 @@ public class LoadData : MonoBehaviour
         //## 02: Process Dataset
         CsvFileType csvFile = (CsvFileType)file;
         CurrentParams.loadedData = csvFile.GetDataSet();
-
+        
+        //We are checking whether the loaded data is suitable for the graph.
         if (Helper.FileValidation())
             CallMainScene();
         else
@@ -38,6 +45,9 @@ public class LoadData : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// It directs to the screen where the graphic will be drawn.
+    /// </summary>
     private void CallMainScene()
     {
         SceneManager.LoadScene("MainScene");

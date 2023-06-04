@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
+/// <summary>
+/// It contains the common methods used in the project.
+/// </summary>
 public class Helper : MonoBehaviour
 {
 	public static bool FileValidation()
