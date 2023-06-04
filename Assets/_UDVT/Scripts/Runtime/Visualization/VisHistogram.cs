@@ -3,12 +3,18 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
+/// <summary>
+/// It contains the formulas needed to calculate binings.
+/// </summary>
 public enum BinningType
 {
     Squareroot,
     Sturges
 }
 
+/// <summary>
+/// It contains the necessary methods and parameters for ploting histograms.
+/// </summary>
 public class VisHistogram : Vis
 {
     private List<double> _xData = new List<double>();
@@ -92,6 +98,9 @@ public class VisHistogram : Vis
 
     #region private
 
+    /// <summary>
+    /// After calculating the bining, it updates the xyzTicks.
+    /// </summary>
     private void UpdatexyzTicks()
     {
         int len = dataSets[0].ElementAt(0).Value.Length;

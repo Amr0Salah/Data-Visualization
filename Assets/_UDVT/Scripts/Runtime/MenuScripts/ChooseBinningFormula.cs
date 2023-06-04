@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// It contains formulas used in calculating the binning.
+/// </summary>
 public class ChooseBinningFormula : MonoBehaviour
 {
     public void StartWithSquareroot()

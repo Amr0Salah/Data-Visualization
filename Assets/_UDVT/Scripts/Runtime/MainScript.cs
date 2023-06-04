@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// MainScript handles the activities needed at the start of the application.
+/// It contains the scene where the graph will be plotted.
 /// </summary>
 public class MainScript : MonoBehaviour
 {
