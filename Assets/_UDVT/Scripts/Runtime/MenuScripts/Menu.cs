@@ -21,7 +21,8 @@ public class Menu : MonoBehaviour
     public void StartWithHistogram()
     {
         CurrentParams.currentVisType = VisType.Histogram;
-        SceneManager.LoadScene("ChooseBinningFormula");
+        //before move to a LoadData Scene we need to choose which formula to use.
+        SceneManager.LoadScene("ChooseBinningFormula"); 
     }
 
     public void StartWithDensityplot()

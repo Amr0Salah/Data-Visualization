@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 
 /// <summary>
-/// LoadData, the field to load the data required for drawing the selected graph.
+/// LoadData, the field to load the data required for ploting the selected graph.
 /// </summary>
 public class LoadData : MonoBehaviour
 {
