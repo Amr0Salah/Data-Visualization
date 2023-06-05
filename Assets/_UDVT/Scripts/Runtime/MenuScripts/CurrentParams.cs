@@ -15,4 +15,7 @@ public class CurrentParams : MonoBehaviour
     public static double kdeSigmaValue = 1; // default
     public static int kdeStepsValue = 100; // default
 
+    public static void SetDefaultKdeSigmaValue() { CurrentParams.kdeSigmaValue = 1; }
+    public static void SetDefaultKdeStepsValue() { CurrentParams.kdeStepsValue = 100; }
+
 }
