@@ -32,7 +32,7 @@ public class Helper : MonoBehaviour
 
             case VisType.Scatterplot:
             default:
-                if (_len <= 1)
+                if (_len <= 2)
                     result = false;
 
                 break;

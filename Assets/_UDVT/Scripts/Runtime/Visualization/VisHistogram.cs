@@ -17,7 +17,9 @@ public enum BinningType
 /// </summary>
 public class VisHistogram : Vis
 {
-    private List<double> _xData = new List<double>();
+    // Contains numbers to be displayed on the x-axis.
+    private List<double> _xData = new List<double>(); 
+
     private List<double> _frequency = new List<double>();
 
     public VisHistogram()
@@ -78,6 +80,7 @@ public class VisHistogram : Vis
             int temp = minMaxValues.Where(q => (q >= _min) && (q < (_min + _range))).Count();
             _frequency.Add(temp);
 
+            //It calculates the numbers to be displayed on the x-axis.
             _min = _min + _range;
             _xData.Add(_min);
         }
@@ -99,7 +102,7 @@ public class VisHistogram : Vis
     #region private
 
     /// <summary>
-    /// After calculating the bining, it updates the xyzTicks.
+    /// It is calculates the number of bins and it updates the xyzTicks.
     /// </summary>
     private void UpdatexyzTicks()
     {
