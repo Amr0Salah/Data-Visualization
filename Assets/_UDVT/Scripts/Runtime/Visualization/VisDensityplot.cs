@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 using static KernelDensityEstimation;
 
+
+/// <summary>
+/// It contains the necessary methods and parameters for ploting Densityplot.
+/// </summary>
 public class VisDensityplot : Vis
 {
     public double[,] KDEresult = null;
@@ -35,7 +39,7 @@ public class VisDensityplot : Vis
         //## 02: Set Remaining Vis Channels (Color,...)
         visContainer.SetChannel(VisChannel.XPos, dataSets[0].ElementAt(0).Value);
         visContainer.SetChannel(VisChannel.YPos, dataSets[0].ElementAt(1).Value);
-        visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(3).Value);
+        visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(1).Value);
 
         //## 03: Draw all Data Points with the provided Channels 
         visContainer.CreateDataMarks(dataMarkPrefab);
@@ -62,7 +66,10 @@ public class VisDensityplot : Vis
         dataSets[0][yName] = Enumerable.Range(0, KDEresult.GetLength(0)).Select(x => KDEresult[x, 1]).ToArray();
     }
 
-
+    /// <summary>
+    /// It connects the dots with a line.
+    /// </summary>
+    /// <param name="datamarks"></param>
     public void ConnectDataMarks(List<DataMark>  datamarks)
     {
         for (int i = 0; i < datamarks.Count-1; i++)

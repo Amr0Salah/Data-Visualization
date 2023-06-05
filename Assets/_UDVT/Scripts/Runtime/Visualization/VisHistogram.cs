@@ -3,15 +3,23 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
+/// <summary>
+/// It contains the formulas needed to calculate binings.
+/// </summary>
 public enum BinningType
 {
     Squareroot,
     Sturges
 }
 
+/// <summary>
+/// It contains the necessary methods and parameters for ploting histograms.
+/// </summary>
 public class VisHistogram : Vis
 {
-    private List<double> _xData = new List<double>();
+    // Contains numbers to be displayed on the x-axis.
+    private List<double> _xData = new List<double>(); 
+
     private List<double> _frequency = new List<double>();
 
     public VisHistogram()
@@ -42,7 +50,7 @@ public class VisHistogram : Vis
         //## 02: Set Remaining Vis Channels (Color,...)
         visContainer.SetChannel(VisChannel.XPos, dataSets[0].ElementAt(0).Value);
         visContainer.SetChannel(VisChannel.YSize, dataSets[0].ElementAt(1).Value);
-        visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(3).Value);
+        visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(1).Value);
 
         //## 03: Draw all Data Points with the provided Channels 
         visContainer.CreateDataMarks(dataMarkPrefab);
@@ -72,6 +80,7 @@ public class VisHistogram : Vis
             int temp = minMaxValues.Where(q => (q >= _min) && (q < (_min + _range))).Count();
             _frequency.Add(temp);
 
+            //It calculates the numbers to be displayed on the x-axis.
             _min = _min + _range;
             _xData.Add(_min);
         }
@@ -92,6 +101,9 @@ public class VisHistogram : Vis
 
     #region private
 
+    /// <summary>
+    /// It is calculates the number of bins and it updates the xyzTicks.
+    /// </summary>
     private void UpdatexyzTicks()
     {
         int len = dataSets[0].ElementAt(0).Value.Length;

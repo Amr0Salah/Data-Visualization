@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Menu handles the activities needed at the start of the application.
+/// </summary>
 public class Menu : MonoBehaviour
 {
     public void StartWithScatterplot()
@@ -11,10 +14,15 @@ public class Menu : MonoBehaviour
         CallLoadData();
     }
 
+    /// <summary>
+    /// Some charts need extra information. Therefore, before going to the LoadData screen,
+    /// it goes to an intermediate screen.
+    /// </summary>
     public void StartWithHistogram()
     {
         CurrentParams.currentVisType = VisType.Histogram;
-        SceneManager.LoadScene("ChooseBinningFormula");
+        //before move to a LoadData Scene we need to choose which formula to use.
+        SceneManager.LoadScene("ChooseBinningFormula"); 
     }
 
     public void StartWithDensityplot()
@@ -35,6 +43,9 @@ public class Menu : MonoBehaviour
         CallLoadData();
     }
 
+    /// <summary>
+    /// It directs to the LoadData to load the data needed to draw the selected graph.
+    /// </summary>
     private void CallLoadData()
     {
         SceneManager.LoadScene("LoadData");
