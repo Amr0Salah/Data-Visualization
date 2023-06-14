@@ -77,8 +77,7 @@ public class VisHistogram : Vis
 
         for (var i = 0; i < numberOfTicks; i++)
         {
-            int temp = minMaxValues.Where(q => (q >= _min) && (q < (_min + _range))).Count();
-            _frequency.Add(temp);
+            _frequency.Add(minMaxValues.Where(q => (q >= _min) && (q < (_min + _range))).Count());
 
             //It calculates the numbers to be displayed on the x-axis.
             _min = _min + _range;
