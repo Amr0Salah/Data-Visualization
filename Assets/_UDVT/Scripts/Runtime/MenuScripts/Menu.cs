@@ -28,7 +28,7 @@ public class Menu : MonoBehaviour
     public void StartWithDensityplot()
     {
         CurrentParams.currentVisType = VisType.Densityplot;
-        SceneManager.LoadScene("ChooseKdeParameters");
+        CallLoadData();
     }
 
     public void StartWithViolinPlot()
