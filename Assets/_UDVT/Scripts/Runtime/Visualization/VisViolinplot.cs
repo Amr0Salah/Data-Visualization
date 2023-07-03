@@ -21,16 +21,23 @@ public class VisViolinplot : Vis
     {
         base.CreateVis(container);
 
-        KDEresult = KernelDensityEstimation.KDE(dataSets[0].ElementAt(0).Value, CurrentParams.kdeSigmaValue, CurrentParams.kdeStepsValue);
+        double bandWith = CalculationHelper.CalculateBandWithByRuleOfThumb(dataSets[0].ElementAt(0).Value);
+        KDEresult = KernelDensityEstimation.KDE(dataSets[0].ElementAt(0).Value, bandWith, CurrentParams.kdeStepsValue);
         ChangeDataMarks();
 
         StatisticalCalculations statisticalCalculations = new StatisticalCalculations(dataSets[0].ElementAt(0).Value);
 
         var median = statisticalCalculations.median;
         var iqr = statisticalCalculations.iqr;
+
         var minimum = statisticalCalculations.minimum;
         var maximum = statisticalCalculations.maximum;
 
+        var lowerBound = statisticalCalculations.lowerBound;
+        var upperBound = statisticalCalculations.upperBound; 
+
+        var outliers = statisticalCalculations.outliers;
+        var quartiles = statisticalCalculations.quartiles;
 
         //## 01:  Create Axes and Grids
         // X Axis
@@ -48,11 +55,9 @@ public class VisViolinplot : Vis
         //## 03: Draw all Data Points with the provided Channels 
         visContainer.CreateDataMarks(dataMarkPrefab);
 
-
         //## 04: Rescale Chart
         visContainerObject.transform.localScale = new Vector3(width, height, depth);
 
-        List<DataMark> datamarks = visContainer.dataMarkList;
 
         return visContainerObject;
     }

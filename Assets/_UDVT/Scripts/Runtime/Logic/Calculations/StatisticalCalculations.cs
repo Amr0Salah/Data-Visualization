@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Linq;
-
+using UnityEngine;
+using System.Collections.Generic;
 public class StatisticalCalculations
 {
     private double[] data;
-    private double[] quartiles;
-
-
+    
+    public double[] quartiles;
     public double iqr;
     public double median;
     public double minimum;
     public double maximum;
-
+    public double lowerBound;
+    public double upperBound;
+    public List<double> outliers = new List<double>();
 
     public StatisticalCalculations(double[] dataArray)
     {
@@ -25,9 +27,7 @@ public class StatisticalCalculations
         CalculateQuartiles();
         CalculateIQR();
 
-        // Calculate extreme points
-        minimum = data[0];
-        maximum = data[data.Length - 1];
+        CalculateOutliers();
     }
 
     private double CalculateMedian(double[] array)
@@ -75,5 +75,23 @@ public class StatisticalCalculations
     private void CalculateIQR()
     {
         iqr = quartiles[2] - quartiles[0];
+    }
+
+    private void CalculateOutliers()
+    {
+        // Calculate extreme points
+        minimum = data[0];
+        maximum = data[data.Length - 1];
+
+        lowerBound = quartiles[0] - 1.5 * iqr;
+        upperBound = quartiles[2] + 1.5 * iqr;
+
+        foreach (double value in data)
+        {
+            if (value < lowerBound || value > upperBound)
+            {
+                outliers.Add(value);
+            }
+        }
     }
 }
