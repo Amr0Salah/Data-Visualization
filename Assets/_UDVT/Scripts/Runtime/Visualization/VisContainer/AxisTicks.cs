@@ -166,10 +166,16 @@ public class AxisTicks
         var tickLabel = tickInstance.GetComponentInChildren<TextMesh>();
 
         if (scale.dataScaleType == Scale.DataScaleType.Linear)
-            tickLabel.text = Math.Round(domainValue, decimalPoints).ToString();
+        {
+            double value = Math.Round(domainValue, decimalPoints) * 10;
+            tickLabel.text = value.ToString();
+            //Debug.Log("First: " + tickLabel.text);
+        }
         else if (scale.dataScaleType == Scale.DataScaleType.Nominal)
+        {
             tickLabel.text = scale.GetDomainValueName(domainValue);
-
+            //Debug.Log("Second: " + tickLabel.text);
+        }
         return tickInstance;
     }
 
