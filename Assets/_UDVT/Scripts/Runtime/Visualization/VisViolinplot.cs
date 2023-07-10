@@ -5,6 +5,7 @@ using System;
 using static KernelDensityEstimation;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
+//using static System.IO.Enumeration.FileSystemEnumerable<TResult>;
 
 public class VisViolinplot : Vis
 {
@@ -42,10 +43,6 @@ public class VisViolinplot : Vis
 
         var outliers = statisticalCalculations.outliers;
         var quartiles = statisticalCalculations.quartiles;
-
-
-        double min = minimum;
-        double max = maximum;
 
   
         ////////////////
@@ -93,6 +90,11 @@ public class VisViolinplot : Vis
         visContainerObject.transform.localScale = new Vector3(width, height, depth);
         List<DataMark> datamarks = visContainer.dataMarkList;
         ConnectDataMarks(datamarks);
+
+        DrawVilonShape(datamarks);
+        
+
+
         return visContainerObject;
 
     }
@@ -140,6 +142,7 @@ public class VisViolinplot : Vis
             renderer.endWidth = 0.003f;
             renderer.SetPosition(0, startTransform.position);
             renderer.SetPosition(1, endTransform.position);
+
             if (i == datamarks.Count / 2 - 2)
             {
                 startTransform = datamarks[i].GetDataMarkInstance().transform;
@@ -186,24 +189,90 @@ public class VisViolinplot : Vis
     }
 
 
-    public void DrawVilonShape(double minimum)
+    public void DrawVilonShape(List<DataMark> datamarks)
     {
-        GameObject line = new GameObject();
-        line.name = "AMR";
-        //line.transform.localPosition = start;
-        line.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
-        line.AddComponent<LineRenderer>();
 
-        LineRenderer renderer = line.GetComponent<LineRenderer>();
-        renderer.useWorldSpace = true;
-        renderer.material = (Material)Resources.Load("Prefabs/DataVisPrefabs/Marks/Line");
-        renderer.material.SetColor("_Color", Color.white);
-        renderer.startWidth = 0.003f;
-        renderer.endWidth = 0.003f;
-        renderer.SetPosition(0, new(0.025f, 0.22f, 0f));
-        renderer.SetPosition(1, new(0.045f, 0.22f, 0f));
+        int minPos = 0;
+        float minvalue = 0;
+        
 
-        Debug.Log(minimum);
+
+        ////////////////////
+
+        for (int i = 0; i <datamarks.Count/2  -1; i++)
+        {
+            var startTransform1 = datamarks[i].GetDataMarkInstance().transform;
+            if( i == 0)
+            {
+                minvalue = startTransform1.position.y;
+                minPos = i;
+            }
+            if (minvalue > startTransform1.position.y)
+            {
+                minvalue = startTransform1.position.y;
+                minPos = i;
+            }
+        }
+
+        for (int i = 0; i < 2; i++)
+        {
+
+            var startTransform = datamarks[minPos].GetDataMarkInstance().transform;
+            var startXTransform = datamarks[datamarks.Count / 8].GetDataMarkInstance().transform;
+            var endXTransform = datamarks[datamarks.Count - datamarks.Count / 8].GetDataMarkInstance().transform;
+
+            var start = new Vector3(startTransform.localPosition.x, startTransform.localPosition.y, startTransform.localPosition.z);
+            if (i == 0)
+            {
+                GameObject line = new GameObject();
+                line.name = "min";
+                line.transform.localPosition = start;
+                line.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
+                line.AddComponent<LineRenderer>();
+
+                LineRenderer renderer = line.GetComponent<LineRenderer>();
+                renderer.useWorldSpace = true;
+                renderer.material = (Material)Resources.Load("Prefabs/DataVisPrefabs/Marks/Line");
+                renderer.material.SetColor("_Color", Color.black);
+                renderer.startWidth = 0.003f;
+                renderer.endWidth = 0.003f;
+                var firstLineStart = new Vector3(startXTransform.position.x, startTransform.position.y, startTransform.position.z);
+                var firstLineEnd = new Vector3(endXTransform.position.x, startTransform.position.y, startTransform.position.z);
+
+                renderer.SetPosition(0, firstLineStart);
+                renderer.SetPosition(1, firstLineEnd);
+            }
+
+            if( i  == 1)
+            {
+                var startMdianTransform = datamarks[datamarks.Count / 4].GetDataMarkInstance().transform;
+
+                var LineMedianStart = new Vector3(startMdianTransform.position.x, startTransform.position.y  + startTransform.position.y / 10, startTransform.position.z);
+                var LineMedianEnd = new Vector3(startMdianTransform.position.x, startTransform.position.y - startTransform.position.y / 10, startTransform.position.z);
+
+                GameObject line = new GameObject();
+                line.name = "min";
+                line.transform.localPosition = start;
+                line.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
+                line.AddComponent<LineRenderer>();
+
+                LineRenderer renderer = line.GetComponent<LineRenderer>();
+                renderer.useWorldSpace = true;
+                renderer.material = (Material)Resources.Load("Prefabs/DataVisPrefabs/Marks/Line");
+                renderer.material.SetColor("_Color", Color.black);
+                renderer.startWidth = 0.003f;
+                renderer.endWidth = 0.003f;
+//var firstLineStart = new Vector3(LineMedianStart.position.x, startTransform.position.y, startTransform.position.z);
+  //              var firstLineEnd = new Vector3(endXTransform.position.x, startTransform.position.y, startTransform.position.z);
+
+                renderer.SetPosition(0, LineMedianStart);
+                renderer.SetPosition(1, LineMedianEnd);
+
+            }
+
+        }
+
+
     }
 
 }
