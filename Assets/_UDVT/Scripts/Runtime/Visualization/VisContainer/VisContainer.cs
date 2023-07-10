@@ -109,6 +109,7 @@ public class VisContainer
     /// <param name="markPrefab"></param>
     public void CreateDataMarks(GameObject markPrefab)
     {
+        markPrefab.GetComponent<MeshRenderer>().enabled = true;
         // Check how many values the datset has
         int numberOfMarks = channelValues[0].Length;
 

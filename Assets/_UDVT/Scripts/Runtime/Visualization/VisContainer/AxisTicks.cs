@@ -167,7 +167,7 @@ public class AxisTicks
 
         if (scale.dataScaleType == Scale.DataScaleType.Linear)
         {
-            double value = Math.Round(domainValue, decimalPoints) * 10;
+            double value = Math.Round(domainValue, decimalPoints);
             tickLabel.text = value.ToString();
             //Debug.Log("First: " + tickLabel.text);
         }
