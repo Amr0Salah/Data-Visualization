@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class DataGrid
 {
+    //NewCode_12
     //Define division of the Grid
     public int xGridSize = 4;
     public int yGridSize = 4;
@@ -51,7 +52,13 @@ public class DataGrid
         //Set Start/End Values of the container bounding box
         xMinMaxC = new[] { containerBounds.min[(int)axisDirections[0]], containerBounds.max[(int)axisDirections[0]] };
         yMinMaxC = new[] { containerBounds.min[(int)axisDirections[1]], containerBounds.max[(int)axisDirections[1]] };
-
+        Debug.Log(xMinMaxC[0]);
+        Debug.Log(xMinMaxC[1]);
+        Debug.Log(yMinMaxC[0]);
+        Debug.Log(yMinMaxC[1]);
+        //Size box.
+        //xMinMaxC[1] = 2;
+        //yMinMaxC[1] = 2;
         // If no offset found, there is no need to extend the grid
         if (xOffset == 0.0f && yOffset == 0.0f) extendGrid = false;
 

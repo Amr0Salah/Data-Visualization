@@ -4,14 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using TMPro;
+using System.Linq;
 
+using static CalculationHelper;
 /// <summary>
 /// It includes input buttons to obtaining the parameters required in KDE calculations from the user.
 /// </summary>
 public class ChooseKdeParameters : MonoBehaviour
 {
+    //NewCode_12
+
     public InputField sigmaValue;
     public InputField stepsValue;
+
+    public TextMeshProUGUI resultText;
+
+    void Start()
+    {
+        Dictionary<string, double[]> dataSets = CurrentParams.loadedData;
+        double bandwith = CalculationHelper.CalculateBandWithByRuleOfThumb(dataSets.ElementAt(0).Value);
+        resultText.text = bandwith.ToString("0.00");
+    }
 
     public void OnChangeSigmaValue()
     {
@@ -35,6 +49,6 @@ public class ChooseKdeParameters : MonoBehaviour
 
     public void SaveValuesAndRedirect()
     {
-        SceneManager.LoadScene("LoadData");
+        SceneManager.LoadScene("MainScene");
     }
 }

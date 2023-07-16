@@ -1,15 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
-
 using static KernelDensityEstimation;
-
 
 /// <summary>
 /// It contains the necessary methods and parameters for ploting Densityplot.
 /// </summary>
 public class VisDensityplot : Vis
 {
+    //NewCode_12
     public double[,] KDEresult = null;
 
     public VisDensityplot()

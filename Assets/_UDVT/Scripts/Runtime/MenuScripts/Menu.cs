@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class Menu : MonoBehaviour
 {
+    //NewCode_12
     public void StartWithScatterplot()
     {
         CurrentParams.currentVisType = VisType.Scatterplot;
@@ -28,7 +29,7 @@ public class Menu : MonoBehaviour
     public void StartWithDensityplot()
     {
         CurrentParams.currentVisType = VisType.Densityplot;
-        SceneManager.LoadScene("ChooseKdeParameters");
+        CallLoadData();
     }
 
     public void StartWithViolinPlot()

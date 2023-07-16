@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class DataMark
 {
+    //NewCode_12
     private readonly int markID = 0;    // Unique ID of the data mark
     
     public struct Channel

@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class AxisTicks
 {
+    //NewCode_12
+
+
     private double[] axisStartEndPoints;        // Start-/Endpoint of the Axis is assumed to be (0.0f, 0.0f, 0.0f) and (1.0f, 0.0f, 0.0f)
     private readonly int decimalPoints = 4;     // Number of decimal points for the tick labels
 
@@ -166,10 +169,16 @@ public class AxisTicks
         var tickLabel = tickInstance.GetComponentInChildren<TextMesh>();
 
         if (scale.dataScaleType == Scale.DataScaleType.Linear)
-            tickLabel.text = Math.Round(domainValue, decimalPoints).ToString();
+        {
+            double value = Math.Round(domainValue, decimalPoints);
+            tickLabel.text = value.ToString();
+            //Debug.Log("First: " + tickLabel.text);
+        }
         else if (scale.dataScaleType == Scale.DataScaleType.Nominal)
+        {
             tickLabel.text = scale.GetDomainValueName(domainValue);
-
+            //Debug.Log("Second: " + tickLabel.text);
+        }
         return tickInstance;
     }
 

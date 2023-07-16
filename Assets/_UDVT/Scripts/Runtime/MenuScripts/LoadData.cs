@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LoadData : MonoBehaviour
 {
+    //NewCode_12
     private FileLoadingManager fileLoadingManager;
 
     void Awake()
@@ -38,7 +39,12 @@ public class LoadData : MonoBehaviour
         
         //We are checking whether the loaded data is suitable for the graph.
         if (Helper.FileValidation())
-            CallMainScene();
+        {
+            if(CurrentParams.currentVisType == VisType.Densityplot)
+                SceneManager.LoadScene("ChooseKdeParameters");
+            else
+                CallMainScene();
+        }
         else
             Debug.LogError(CurrentParams.currentVisType + " cannot be plot with the csv file you uploaded.");
 

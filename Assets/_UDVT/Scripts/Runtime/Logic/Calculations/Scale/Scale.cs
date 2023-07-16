@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Scale
 {
+    //NewCode_12
 
     // Categorical/Nominal (No ordering)
     // Ordered

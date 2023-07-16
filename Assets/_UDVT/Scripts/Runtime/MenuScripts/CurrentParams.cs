@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class CurrentParams : MonoBehaviour
 {
+    //NewCode_12
     public static VisType currentVisType = VisType.Scatterplot; // default
     public static BinningType currentBinningType = BinningType.Squareroot; // default
     public static Dictionary<string, double[]> loadedData = null; // default

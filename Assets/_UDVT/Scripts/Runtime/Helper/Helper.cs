@@ -10,7 +10,8 @@ using System.Linq;
 /// </summary>
 public class Helper : MonoBehaviour
 {
-	public static bool FileValidation()
+    //NewCode_12
+    public static bool FileValidation()
 	{
         bool result = true;
         var _len = CurrentParams.loadedData.Count;
