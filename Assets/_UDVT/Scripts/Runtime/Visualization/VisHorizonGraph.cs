@@ -42,17 +42,19 @@ public class VisHorizonGraph : Vis
         visContainer.SetChannel(VisChannel.YPos, dataSets[0].ElementAt(1).Value);
         visContainer.SetChannel(VisChannel.Color, dataSets[0].ElementAt(1).Value);
 
-        //## 03: Draw all Data Points with the provided Channels 
+        //## 03: Draw all Data Points with the provided Channels
+        
         visContainer.CreateHorizonGraphDataMarks(dataMarkPrefab);
         //visContainer.CreateBaseLineDataMarks(dataMarkPrefab , 0.25f);
         //## 04: Rescale Chart
         visContainerObject.transform.localScale = new Vector3(width, height, depth);
 
         List<DataMark> datamarks = visContainer.dataMarkList;
+        CreateBaseLine(datamarks, 3, 0);
 
         ConnectDataMarks(datamarks);
 
-        CreateBaseLine(datamarks, 3,0);
+       
 
 
         return visContainerObject;
@@ -179,9 +181,20 @@ public class VisHorizonGraph : Vis
             List<int> trianglesRed = new List<int>();
             List<Vector3> meshVertices = mesh.vertices.ToList();
             // List<Vector3> meshVertices2 = mesh.vertices.ToList();
-            for (int i = 0; i < mesh.vertices.Length - 2; i++)
+            for (int i = 0; i < mesh.vertices.Length - 1; i++)
             {
-                meshVertices.Add(new Vector3(mesh.vertices[i].x, mesh.vertices[0].y, mesh.vertices[i].z));
+                if (mesh.vertices[i].y < mesh.vertices[split].y)
+                {
+                    meshVertices[i] = new Vector3(meshVertices[i].x, Math.Abs(meshVertices[i].y - meshVertices[split].y) + meshVertices[split].y, meshVertices[i].z);
+
+                }
+                if (mesh.vertices[i+1].y < mesh.vertices[split].y)
+                {
+                    meshVertices[i + 1] = new Vector3(meshVertices[i + 1].x, Math.Abs(meshVertices[i + 1].y - meshVertices[split].y) + meshVertices[split].y, meshVertices[i + 1].z);
+
+                }
+
+                meshVertices.Add(new Vector3(meshVertices[i].x, meshVertices[0].y, meshVertices[i].z));
 
                 triangles.AddRange(new int[] { i, i + 1, meshVertices.Count() - 1 });
                 if (triangles.Count > 3)
@@ -190,6 +203,10 @@ public class VisHorizonGraph : Vis
                 }
             }
 
+            meshVertices.Add(new Vector3(meshVertices[mesh.vertices.Length - 1].x, meshVertices[mesh.vertices.Length - 1].y, meshVertices[mesh.vertices.Length - 1].z));
+            triangles.AddRange(new int[] { mesh.vertices.Length - 1, mesh.vertices.Length - 2, meshVertices.Count() - 1 });
+
+           // triangles.AddRange(new int[] { mesh.vertices.Length - 1, meshVertices.Count() - 1, meshVertices.Count() - 2 });
 
             mesh.vertices = meshVertices.ToArray();
             mesh.SetTriangles(triangles.ToArray(), 0);
@@ -209,6 +226,16 @@ public class VisHorizonGraph : Vis
 
             }
             
+        }
+        var refTransform = datamarks[split].GetDataMarkInstance().transform;
+        for (int i = 0; i < datamarks.Count() ; i++)
+        {
+            var label = datamarks[i].GetDataMarkInstance().transform;
+            if (label.position.y < refTransform.position.y)
+            {
+                label.position = new Vector3(label.position.x, Math.Abs(label.position.y - refTransform.position.y) + refTransform.position.y, label.position.z);
+
+            }
         }
         var start = new Vector3(startTransform.localPosition.x, startTransform.localPosition.y, startTransform.localPosition.z);
         GameObject line = new GameObject();
