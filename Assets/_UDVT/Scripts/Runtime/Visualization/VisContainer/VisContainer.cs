@@ -127,6 +127,26 @@ public class VisContainer
        
     }
 
+    public void CreateHorizonGraphDataMarks(GameObject markPrefab)
+    {
+        markPrefab.GetComponent<MeshRenderer>().enabled = false;
+        // Check how many values the datset has
+        int numberOfMarks = channelValues[0].Length;
+
+        for (int mark = 0; mark < numberOfMarks; mark++)
+        {
+            DataMark dataMark = new DataMark(dataMarkList.Count, markPrefab);
+
+            //Create Values
+            DataMark.Channel channel = DataMark.DefaultDataChannel();
+            channel = GetDataMarkChannelValues(channel, mark);
+
+            dataMark.CreateDataMark(dataMarkContainer.transform, channel);
+            dataMarkList.Add(dataMark);
+        }
+
+    }
+
     public void VilonCreateDataMarks(GameObject markPrefab)
     {
         //Disable Sphere's mesh renderer.
@@ -181,6 +201,32 @@ public class VisContainer
             dataMarkList.Add(dataMark);
         }
         
+
+    }
+
+    public void CreateBaseLineDataMarks(GameObject markPrefab, float yPos)
+    {
+        // Check how many values the datset has
+        float min = 0;
+        float max = 0;
+
+        int numberOfMarks = channelValues[0].Length;
+        
+      
+
+        for (int mark = 0; mark < numberOfMarks; mark++)
+        {
+            DataMark dataMark = new DataMark(dataMarkList.Count, markPrefab);
+
+            //Create Values
+            DataMark.Channel channel = DataMark.DefaultDataChannel();
+            channel = GetDataMarkChannelValues(channel, mark);
+            channel.position.y = yPos;
+            dataMark.CreateDataMark(dataMarkContainer.transform, channel);
+            dataMarkList.Add(dataMark);
+        }
+
+        /////////////////////////////////////////////////////
 
     }
     public void CreateMirrorDataMarks(GameObject markPrefab)

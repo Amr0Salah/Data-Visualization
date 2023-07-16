@@ -194,9 +194,6 @@ public class VisViolinplot : Vis
 
         int minPos = 0;
         float minvalue = 0;
-        
-
-
         ////////////////////
 
         for (int i = 0; i <datamarks.Count/2  -1; i++)
@@ -229,7 +226,7 @@ public class VisViolinplot : Vis
                 line.transform.localPosition = start;
                 line.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
                 line.AddComponent<LineRenderer>();
-
+                
                 LineRenderer renderer = line.GetComponent<LineRenderer>();
                 renderer.useWorldSpace = true;
                 renderer.material = (Material)Resources.Load("Prefabs/DataVisPrefabs/Marks/Line");
@@ -247,8 +244,8 @@ public class VisViolinplot : Vis
             {
                 var startMdianTransform = datamarks[datamarks.Count / 4].GetDataMarkInstance().transform;
 
-                var LineMedianStart = new Vector3(startMdianTransform.position.x, startTransform.position.y  + startTransform.position.y / 10, startTransform.position.z);
-                var LineMedianEnd = new Vector3(startMdianTransform.position.x, startTransform.position.y - startTransform.position.y / 10, startTransform.position.z);
+                var LineMedianStart = new Vector3(startMdianTransform.position.x, startTransform.position.y  + startTransform.position.y / 20, startTransform.position.z);
+                var LineMedianEnd = new Vector3(startMdianTransform.position.x, startTransform.position.y - startTransform.position.y / 20, startTransform.position.z);
 
                 GameObject line = new GameObject();
                 line.name = "min";
@@ -262,8 +259,6 @@ public class VisViolinplot : Vis
                 renderer.material.SetColor("_Color", Color.black);
                 renderer.startWidth = 0.003f;
                 renderer.endWidth = 0.003f;
-//var firstLineStart = new Vector3(LineMedianStart.position.x, startTransform.position.y, startTransform.position.z);
-  //              var firstLineEnd = new Vector3(endXTransform.position.x, startTransform.position.y, startTransform.position.z);
 
                 renderer.SetPosition(0, LineMedianStart);
                 renderer.SetPosition(1, LineMedianEnd);
