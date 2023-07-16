@@ -10,7 +10,8 @@ using UnityEngine.UIElements;
 public class VisHorizonGraph : Vis
 {
     public double[,] KDEresult = null;
-
+    private Material material01;
+    private Material material02;
     public VisHorizonGraph()
     {
         title = "HorizonGraph";
@@ -18,6 +19,8 @@ public class VisHorizonGraph : Vis
         //Define Data Mark and Tick Prefab
         dataMarkPrefab = (GameObject)Resources.Load("Prefabs/DataVisPrefabs/Marks/Sphere");
         tickMarkPrefab = (GameObject)Resources.Load("Prefabs/DataVisPrefabs/VisContainer/Tick");
+        material01 = (Material)Resources.Load("VisHorizMaterials/VisHorizontalMaterial_01");
+        material02 = (Material)Resources.Load("VisHorizMaterials/VisHorizontalMaterial_02");
     }
 
     // TODO: It will change
@@ -49,9 +52,9 @@ public class VisHorizonGraph : Vis
 
         ConnectDataMarks(datamarks);
 
-        CreateBaseLine(datamarks,3);
+        CreateBaseLine(datamarks, 3,0);
 
-        
+
         return visContainerObject;
     }
     public override void ChangeDataMarks()
@@ -69,13 +72,16 @@ public class VisHorizonGraph : Vis
     /// <param name="datamarks"></param>
 
 
-    public void CreateBaseLine(List<DataMark> datamarks,int bins)
+    public void CreateBaseLine(List<DataMark> datamarks, int bins,int split)
     {
 
         int minPosY = 0, maxPosY = 0, maxPosX = 0, minPosX = 0;
         double minValueY = 0, maxValueY = 0, maxValueX = 0, minValueX = 0;
+
+        var StartLine = datamarks[split].GetDataMarkInstance();
+
         var startTransform = datamarks[0].GetDataMarkInstance().transform;
-        for ( var i = 0; i < datamarks.Count; i++)
+        for (var i = 0; i < datamarks.Count; i++)
         {
             startTransform = datamarks[i].GetDataMarkInstance().transform;
             if (i == 0)
@@ -110,20 +116,17 @@ public class VisHorizonGraph : Vis
                 maxPosX = i;
             }
         }
-        
 
-        Debug.Log(minValueY);
         startTransform = datamarks[minPosX].GetDataMarkInstance().transform;
         var endTransform = datamarks[maxPosX].GetDataMarkInstance().transform;
-
-        var firstLineEnd = new Vector3(0, startTransform.position.y, startTransform.position.z);
-        var firstLineStart = new Vector3(endTransform.position.x +0.025f, startTransform.position.y, endTransform.position.z);
+        var firstLineEnd = new Vector3(0, StartLine.transform.position.y, startTransform.position.z);
+        var firstLineStart = new Vector3(endTransform.position.x + 0.025f, StartLine.transform.position.y, endTransform.position.z);
         float PosY = startTransform.position.y;
         List<GameObject> breakpoints = new List<GameObject>()
         {
-            datamarks[0].GetDataMarkInstance()
+            StartLine
         };
-        var refBreakpoint = datamarks[0].GetDataMarkInstance().transform;
+        var refBreakpoint = StartLine.transform;
         List<Mesh> meshes = new List<Mesh>()
         {
             new Mesh()
@@ -132,8 +135,7 @@ public class VisHorizonGraph : Vis
         bool increasing = false;
         List<Vector3> points = new List<Vector3>()
         {
-            /// fe error hena 3nd al i
-            datamarks[0].GetDataMarkInstance().transform.position
+            StartLine.transform.position
         };
         for (var i = 1; i < datamarks.Count; i++)
         {
@@ -150,6 +152,7 @@ public class VisHorizonGraph : Vis
                 points.Add(datamarks[i].GetDataMarkInstance().transform.position);
 
                 meshes.Add(new Mesh());
+
             }
             else if (refBreakpoint.position.y > endTransform.position.y && increasing)
             {
@@ -161,52 +164,58 @@ public class VisHorizonGraph : Vis
                 points.Add(datamarks[i].GetDataMarkInstance().transform.position);
 
                 meshes.Add(new Mesh());
+
             }
-            
-            
-            
-          
-
-
         }
-       
+
         meshes[currentMesh].vertices = points.ToArray();
+        int index = 0;
         foreach (var mesh in meshes)
         {
+            
             var go = new GameObject("mesh test" + UnityEngine.Random.seed);
-          //  var gored = new GameObject("mesh test" + UnityEngine.Random.seed);
+            //  var gored = new GameObject("mesh test" + UnityEngine.Random.seed);
             List<int> triangles = new List<int>();
             List<int> trianglesRed = new List<int>();
             List<Vector3> meshVertices = mesh.vertices.ToList();
-           // List<Vector3> meshVertices2 = mesh.vertices.ToList();
-            for (int i = 0; i < mesh.vertices.Length -1; i++)
+            // List<Vector3> meshVertices2 = mesh.vertices.ToList();
+            for (int i = 0; i < mesh.vertices.Length - 2; i++)
             {
                 meshVertices.Add(new Vector3(mesh.vertices[i].x, mesh.vertices[0].y, mesh.vertices[i].z));
-                
+
                 triangles.AddRange(new int[] { i, i + 1, meshVertices.Count() - 1 });
                 if (triangles.Count > 3)
                 {
-                    triangles.AddRange(new int[] { i, meshVertices.Count() - 1, meshVertices.Count() - 4 });
-
+                    triangles.AddRange(new int[] { i, meshVertices.Count() - 1, meshVertices.Count() - 2 });
                 }
-
             }
+
+
             mesh.vertices = meshVertices.ToArray();
             mesh.SetTriangles(triangles.ToArray(), 0);
-
             mesh.RecalculateNormals();
             go.AddComponent<MeshRenderer>();
             go.AddComponent<MeshFilter>();
             go.GetComponent<MeshFilter>().mesh = mesh;
+            if(index==0)
+            {
+            go.GetComponent<MeshRenderer>().material = material02;
+                index = 1;
+            }
+            else if(index==1)
+            {
+                go.GetComponent<MeshRenderer>().material = material01;
+                index = 0;
 
+            }
+            
         }
         var start = new Vector3(startTransform.localPosition.x, startTransform.localPosition.y, startTransform.localPosition.z);
         GameObject line = new GameObject();
-        line.name =  "BaseLine";
+        line.name = "BaseLine";
         line.transform.localPosition = start;
         line.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
         line.AddComponent<LineRenderer>();
-
         LineRenderer renderer = line.GetComponent<LineRenderer>();
         renderer.useWorldSpace = true;
         renderer.material = (Material)Resources.Load("Prefabs/DataVisPrefabs/Marks/Line");

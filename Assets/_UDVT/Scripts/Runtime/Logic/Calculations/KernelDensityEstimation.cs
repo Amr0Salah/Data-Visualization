@@ -16,23 +16,7 @@ public class KernelDensityEstimation
     /// <returns></returns>
     public static double[,] KDE(double[] data, double sigma, int nsteps)
     {
-        //Taken from https://gist.github.com/ksandric/e91860143f1dd378645c01d518ddf013
-
-        // probability density function (PDF) signal analysis
-        // Works like ksdensity in mathlab. 
-        // KDE performs kernel density estimation (KDE)on one - dimensional data
-        // http://en.wikipedia.org/wiki/Kernel_density_estimation
-
-        // Input:	-data: input data, one-dimensional
-        //          -sigma: bandwidth(sometimes called "h")
-        //          -nsteps: optional number of abscis points.If nsteps is an
-        //          array, the abscis points will be taken directly from it. (default 100)
-        // Output:	-x: equispaced abscis points
-        //          -y: estimates of p(x)
-
-        // This function is part of the Kernel Methods Toolbox(KMBOX) for MATLAB. 
-        // http://sourceforge.net/p/kmbox
-        // Converted to C# code by ksandric
+        
 
         double[,] result = new double[nsteps, 2];
         double[] x = new double[nsteps], y = new double[nsteps];
@@ -53,7 +37,7 @@ public class KernelDensityEstimation
             }
         }
 
-        // Like MATLAB linspace(MIN, MAX, nsteps);
+        // Like  linspace(MIN, MAX, nsteps);
         x[0] = MIN;
         for (int i = 1; i < nsteps; i++)
         {

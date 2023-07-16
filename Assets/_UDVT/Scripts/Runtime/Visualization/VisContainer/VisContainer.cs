@@ -160,7 +160,6 @@ public class VisContainer
             DataMark dataMark = new DataMark(dataMarkList.Count, markPrefab);
             DataMark.Channel channel = DataMark.DefaultDataChannel();
             channel = GetDataMarkChannelValues(channel, mark);
-
             if (mark == 0)
             {
                 min = channel.position.y;
@@ -169,8 +168,6 @@ public class VisContainer
             {
                 min = channel.position.y;
             }
-
-
             if (mark == 0)
             {
                 max = channel.position.y;
@@ -179,24 +176,16 @@ public class VisContainer
             {
                 max = channel.position.y;
             }
-
         }
-
-
         min = 0;
         max= 0;
-
-
         for (int mark = 0; mark < numberOfMarks; mark++)
         {
             DataMark dataMark = new DataMark(dataMarkList.Count, markPrefab);
-
             //Create Values
             DataMark.Channel channel = DataMark.DefaultDataChannel();
             channel = GetDataMarkChannelValues(channel, mark);
             channel.position.y += max -min;
-           // channel.position.y += max - min;
-
             dataMark.CreateDataMark(dataMarkContainer.transform, channel);
             dataMarkList.Add(dataMark);
         }
@@ -209,15 +198,10 @@ public class VisContainer
         // Check how many values the datset has
         float min = 0;
         float max = 0;
-
         int numberOfMarks = channelValues[0].Length;
-        
-      
-
         for (int mark = 0; mark < numberOfMarks; mark++)
         {
             DataMark dataMark = new DataMark(dataMarkList.Count, markPrefab);
-
             //Create Values
             DataMark.Channel channel = DataMark.DefaultDataChannel();
             channel = GetDataMarkChannelValues(channel, mark);
@@ -225,9 +209,6 @@ public class VisContainer
             dataMark.CreateDataMark(dataMarkContainer.transform, channel);
             dataMarkList.Add(dataMark);
         }
-
-        /////////////////////////////////////////////////////
-
     }
     public void CreateMirrorDataMarks(GameObject markPrefab)
     {
@@ -240,8 +221,7 @@ public class VisContainer
         {
             DataMark dataMark = new DataMark(dataMarkList.Count, markPrefab);
             DataMark.Channel channel = DataMark.DefaultDataChannel();
-            channel = GetDataMarkChannelValues(channel, mark);
-            
+            channel = GetDataMarkChannelValues(channel, mark); 
             if (mark == 0)
             {
                 min = channel.position.y;
@@ -250,8 +230,6 @@ public class VisContainer
             {
                 min = channel.position.y;
             }
- 
-
             if (mark == 0)
             {
                 max = channel.position.y;
@@ -260,9 +238,7 @@ public class VisContainer
             {
                 max = channel.position.y;
             }
-    
         }
-
         for (int mark = 0; mark < numberOfMarks; mark++)
         {
             DataMark dataMark = new DataMark(dataMarkList.Count, markPrefab);
@@ -274,9 +250,6 @@ public class VisContainer
             dataMark.CreateDataMark(dataMarkContainer.transform, channel);
             dataMarkList.Add(dataMark);
         }
-
-        /////////////////////////////////////////////////////
-
     }
 
     /// <summary>
