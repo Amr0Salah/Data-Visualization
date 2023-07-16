@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class ColorHelper
 {
+    //NewCode_12
+
     //singleBlueHue Range goes from light blue to dark blue (https://colorbrewer2.org/#type=sequential&scheme=Blues&n=3)
     public static Color[] singleBlueHue = new[] { ReturnColorFromHex("#deebf7"), ReturnColorFromHex("#9ecae1"), ReturnColorFromHex("#3182bd") };
     // singleGreyHue Range goes from light grey to dark grey

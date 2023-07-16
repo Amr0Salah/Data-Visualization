@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LoadData : MonoBehaviour
 {
+    //NewCode_12
     private FileLoadingManager fileLoadingManager;
 
     void Awake()

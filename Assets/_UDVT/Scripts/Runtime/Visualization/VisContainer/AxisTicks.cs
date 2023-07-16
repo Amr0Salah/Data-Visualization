@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class AxisTicks
 {
+    //NewCode_12
+
+
     private double[] axisStartEndPoints;        // Start-/Endpoint of the Axis is assumed to be (0.0f, 0.0f, 0.0f) and (1.0f, 0.0f, 0.0f)
     private readonly int decimalPoints = 4;     // Number of decimal points for the tick labels
 

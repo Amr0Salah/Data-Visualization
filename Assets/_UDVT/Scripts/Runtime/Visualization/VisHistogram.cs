@@ -7,7 +7,7 @@ using System;
 /// It contains the formulas needed to calculate binings.
 /// </summary>
 public enum BinningType
-{
+{//NewCode_12
     Squareroot,
     Sturges
 }
@@ -17,6 +17,8 @@ public enum BinningType
 /// </summary>
 public class VisHistogram : Vis
 {
+
+    //NewCode_12
     // Contains numbers to be displayed on the x-axis.
     private List<double> _xData = new List<double>(); 
 

@@ -9,6 +9,7 @@ using static KernelDensityEstimation;
 /// </summary>
 public class VisDensityplot : Vis
 {
+    //NewCode_12
     public double[,] KDEresult = null;
 
     public VisDensityplot()

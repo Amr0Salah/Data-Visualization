@@ -9,11 +9,13 @@ using UnityEditor.Experimental.GraphView;
 
 public class VisViolinplot : Vis
 {
+    //NewCode_12
     public double[,] KDEresult = null;
     private LineRenderer lineRenderer;
 
     public VisViolinplot()
     {
+        //NewCode_12
         title = "ViolinPlot";
 
         //Define Data Mark and Tick Prefab
@@ -24,6 +26,7 @@ public class VisViolinplot : Vis
 
     public override GameObject CreateVis(GameObject container)
     {
+        //NewCode_12
         base.CreateVis(container);
 
         double bandWith = CalculationHelper.CalculateBandWithByRuleOfThumb(dataSets[0].ElementAt(0).Value);

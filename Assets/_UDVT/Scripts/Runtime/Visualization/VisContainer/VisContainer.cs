@@ -545,6 +545,7 @@ public class VisContainer
     /// <returns></returns>
     private float[] GetAxisOffsetCoord(Direction axis)
     {
+        
         Vector3 min = containerBounds.min;
         Vector3 max = containerBounds.max;
         return new[] { min[(int)axis] + xyzOffset[(int)axis], max[(int)axis] - xyzOffset[(int)axis] };
@@ -572,6 +573,7 @@ public class VisContainer
     /// <returns></returns>
     private Scale CreateAxisScale(double[] dataValues, float offset)
     {
+        
         List<double> range = new List<double>(2)
         {
             0.0d + offset,
@@ -599,6 +601,7 @@ public class VisContainer
     /// <returns></returns>
     private Scale CreateAxisScale(string[] dataValues, float offset)
     {
+        
         List<double> range = new List<double>(2)
         {
             0.0d + offset,
@@ -626,6 +629,7 @@ public class VisContainer
     /// <returns></returns>
     private Scale GetChannelScale(double[] dataValues, double[] rangeVal)
     {
+        
         List<double> range = new List<double>(2)
         {
             rangeVal[0],

@@ -20,6 +20,7 @@ public enum DatasetType
 /// </summary>
 public class FileLoadingManager
 {
+    //NewCode_12
     private bool loadingSucceded = false;
     private FileLoader loaderFactory;
 

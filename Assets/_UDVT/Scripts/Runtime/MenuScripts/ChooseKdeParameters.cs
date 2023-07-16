@@ -13,6 +13,8 @@ using static CalculationHelper;
 /// </summary>
 public class ChooseKdeParameters : MonoBehaviour
 {
+    //NewCode_12
+
     public InputField sigmaValue;
     public InputField stepsValue;
 

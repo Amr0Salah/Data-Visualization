@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class DataGrid
 {
+    //NewCode_12
     //Define division of the Grid
     public int xGridSize = 4;
     public int yGridSize = 4;

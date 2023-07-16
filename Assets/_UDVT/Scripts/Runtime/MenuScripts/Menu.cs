@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class Menu : MonoBehaviour
 {
+    //NewCode_12
     public void StartWithScatterplot()
     {
         CurrentParams.currentVisType = VisType.Scatterplot;

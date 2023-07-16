@@ -3,6 +3,7 @@ using System.Linq;
 
 public static class CalculationHelper
 {
+    //NewCode_12
     public static double CalculateMean(double[] numbers)
     {
         double sum = 0;

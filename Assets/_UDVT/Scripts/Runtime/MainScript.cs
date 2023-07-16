@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class MainScript : MonoBehaviour
 {
+    //NewCode_12
     private Vis vis;
 
     // Start is called at the beginning of the application
@@ -27,6 +28,7 @@ public class MainScript : MonoBehaviour
 
     public async void Visualize()
     {
+        //NewCode_12
         //## 03: Visualize Dataset
         vis = Vis.GetSpecificVisType(CurrentParams.currentVisType);
         vis.AppendData(CurrentParams.loadedData);
