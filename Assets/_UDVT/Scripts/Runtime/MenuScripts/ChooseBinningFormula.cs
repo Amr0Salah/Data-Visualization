@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ChooseBinningFormula : MonoBehaviour
 {
+    //NewCode_12
     public void StartWithSquareroot()
     {
         CurrentParams.currentBinningType = BinningType.Squareroot;

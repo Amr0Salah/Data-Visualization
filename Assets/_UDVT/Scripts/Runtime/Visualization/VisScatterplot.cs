@@ -4,7 +4,7 @@ using UnityEngine;
 public class VisScatterplot : Vis
 {
     public VisScatterplot()
-    {
+    {//NewCode_12
         title = "Scatterplot";
 
         //Define Data Mark and Tick Prefab
@@ -14,6 +14,7 @@ public class VisScatterplot : Vis
 
     public override GameObject CreateVis(GameObject container)
     {
+        //NewCode_12
         base.CreateVis(container);
 
         //## 01:  Create Axes and Grids
